@@ -2,6 +2,22 @@
 
 This project implements and compares two deep learning models, Faster R-CNN and YOLOv11x, for the task of detecting scalpels in surgical video footage. The notebook covers the entire pipeline: video acquisition, frame extraction, manual annotation, dataset preparation, model training, inference, and performance evaluation.
 
+## Key Highlights
+
+| Feature                   | Faster R-CNN (MobileNetV3 Large FPN)                                                       | YOLO (YOLOv11x)                                                                                                                 |
+|---------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| Approach                  | Fine-tuned on custom scalpel dataset. Pre-trained on ImageNet. Standard data augmentation. | Fine-tuned yolo11x.pt on the same custom dataset (YOLO format). Trained with Ultralytics library (100 epochs, AdamW, lr0=1e-5). |
+| mAP@0.50                  | 1.0000                                                                                     | 0.995 (mAP50)                                                                                                                   |
+| mAP@0.50-0.95             | 0.8257                                                                                     | 0.88 (mAP50-95)                                                                                                                 |
+| mAP@0.75                  | 1.0000                                                                                     | N/A                                                                                                                             |
+| Precision                 | N/A                                                                                        | 0.99                                                                                                                            |
+| Recall                    | N/A                                                                                        | 1.0                                                                                                                             |
+| Total Time (5430 frames)  | 108.9159 seconds                                                                           | 178.9 seconds                                                                                                                   |
+| Avg. Inference Time/Frame | 20.06 ms                                                                                   | 25.8 ms                                                                                                                         |
+| Inference-only FPS        | 49.85 FPS                                                                                  | 38.76 FPS                                                                                                                       |
+
+Detailed results and discussion can be found in the "Summary of Results" section at the end of the `task3.ipynb` notebook.
+
 ## Features
 
 * **Video Processing**: Downloads a surgical video from YouTube and extracts individual frames.
@@ -82,14 +98,27 @@ This project uses `uv` for Python environment and package management.
 * **Faster R-CNN**: Utilizes a MobileNetV3 Large FPN backbone, pre-trained on ImageNet, and fine-tuned for scalpel detection.
 * **YOLOv11x**: A state-of-the-art YOLO model, fine-tuned for scalpel detection using the Ultralytics framework.
 
-## Summary of Results
+## Conclusion
 
-The project concludes with a comparison of the two models based on:
+Both models were successfully trained to detect scalpels.
+The Faster R-CNN model demonstrated notably faster inference speeds compared to the YOLO model,
+making it more suitable for real-time applications if its accuracy is acceptable.
+Alternative backbones or further optimizations could potentially improve Faster R-CNN's performance, especially in terms of inference speed.
 
-* **Accuracy**: mAP@0.50, mAP@0.50-0.95, mAP@0.75 (for Faster R-CNN); Precision, Recall, mAP50, mAP50-95 (for YOLO).
-* **Runtime Performance**: Average inference time per frame (ms) and Frames Per Second (FPS) during video processing.
+However the YOLOv11 model is a more recent architecture and generally offers a good balance between speed and accuracy, especially in real-time applications.
+As the YOLOv11 xl model varient was used, experimentation with smaller variants (like YOLOv11l (~half the size) or YOLOv11m) could yield faster inference times while maintaining good accuracy especially with larger datasets.
 
-Detailed results and discussion can be found in the "Summary of Results" section at the end of the `task3.ipynb` notebook.
+The performance metrics on the validation set indicate that the models are capable of detecting scalpels with high precision and recall.
+Even with the extreamly small dataset, the models achieved high mAP scores, indicating that they can generalize well to the task of scalpel detection in surgical videos.
+
+The choice between them would depend on the specific requirements for accuracy versus speed for the target application,
+as well as the level of control and customization needed for the model and its training.
+
+Further hyperparameter tuning, dataset augmentation, or using different model backbones/sizes could potentially improve the performance of both approaches.
+
+Qualitative analysis of the model outputs on the video frames shows that both models effectively detect scalpels, with bounding boxes accurately placed around the instruments.
+However with the Faster R-CNN model, the bounding boxes are more erratic and temporally inconsistent, while the YOLO model provides more stable and consistent detections across frames
+as well as being less prone to false positives that could be very important for surgical applications.
 
 ## Potential Future Improvements
 
