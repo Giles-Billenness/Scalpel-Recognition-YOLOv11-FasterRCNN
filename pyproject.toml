@@ -1,0 +1,32 @@
+[project]
+name = "scalpel-recognition-yolov11-fasterrcnn"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=6.29.5",
+    "ipywidgets>=8.1.6",
+    "matplotlib>=3.10.1",
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+    "numpy>=1.26.4",
+    "pytubefix>=9.1.1",
+    "opencv-python>=4.11.0.86",
+    "torchmetrics[detection]>=1.7.2",
+    "scikit-learn>=1.6.1",
+    "ultralytics>=8.3.146",
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu126", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu126", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
