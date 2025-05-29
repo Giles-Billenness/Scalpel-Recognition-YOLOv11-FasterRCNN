@@ -38,16 +38,21 @@ This project implements and compares two deep learning models, Faster R-CNN and 
     cd <repository-name>
     ```
 
-2. **Create a Python virtual environment or easily use uv:**
+This project uses `uv` for Python environment and package management.
+
+2. **Install uv:**
+    Follow the official installation instructions for `uv` from [docs.astral.sh/uv/getting-started/](https://docs.astral.sh/uv/getting-started/installation/).
+
+3. **Create a Python virtual environment or easily use uv:**
 
     ```bash
     uv sync
     ```
 
-3. **Install dependencies if required:**
+4. **Install dependencies if required:**
     The core dependencies are:
 
-    ```
+    ```bash
     ipykernel
     ipywidgets
     matplotlib
@@ -65,7 +70,7 @@ This project implements and compares two deep learning models, Faster R-CNN and 
 
     An extracted packages list `requirements.txt` is included, generated using `uv export --no-emit-workspace --no-dev --no-header --no-hashes --output-file requirements.txt`
 
-4. **CUDA (Optional but Recommended for GPU acceleration):**
+5. **CUDA (Optional but Recommended for GPU acceleration):**
     For significantly faster training and inference, ensure you have a CUDA-compatible NVIDIA GPU and have installed the appropriate versions of CUDA Toolkit and cuDNN. PyTorch and Ultralytics will automatically detect and use the GPU if available.
 
 ## Usage
